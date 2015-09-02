@@ -11,6 +11,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'annotate'
 end
 
 group :development do
