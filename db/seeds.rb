@@ -16,9 +16,9 @@ include RandomData
 
   10.times do
     Advertisement.create!(
-      title: RandomData.random_sentence
-      copy: RandomData.random_paragraph
-      price: (1..100).sample
+      title: RandomData.random_sentence,
+      copy: RandomData.random_paragraph,
+      price: (1..100).to_a.sample
     )
   end
 
