@@ -71,7 +71,6 @@ RSpec.describe Post, type: :model do
      end
 
      describe "#update_rank" do
- # #28
        it "calculates the correct rank" do
          post.update_rank
          expect(post.rank).to eq (post.points + (post.created_at - Time.new(1970,1,1)) / 1.day.seconds)
@@ -87,6 +86,13 @@ RSpec.describe Post, type: :model do
          old_rank = post.rank
          post.votes.create!(value: -1)
          expect(post.rank).to eq (old_rank - 1)
+       end
+     end
+
+     describe "create_vote after create post" do
+       it "upvotes your post after you create it" do
+         post :create, topic_id: topic.id, post: {title: RandomData.random_sentence, body: RandomData.random_paragraph}
+         expect(@post.points).to eq 1
        end
      end
    end
