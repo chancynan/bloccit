@@ -18,6 +18,8 @@ RSpec.describe Topic, type: :model do
 
   it { should have_many(:posts) }
   it { should have_many(:labelings) }
+  it { should have_many(:rating_associations) }
+  it { should have_many(:ratings).through(:rating_associations) }
   it { should have_many(:labels).through(:labelings) }
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:description) }
