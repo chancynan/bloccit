@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: ratings
+#
+#  id            :integer          not null, primary key
+#  severity      :string
+#  rateable_id   :integer
+#  rateable_type :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 require 'rails_helper'
 include RandomData
 

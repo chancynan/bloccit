@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: ratings
+#
+#  id            :integer          not null, primary key
+#  severity      :string
+#  rateable_id   :integer
+#  rateable_type :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
 class Rating < ActiveRecord::Base
   enum severity: [ :PG, :PG13, :R ]
   has_many :rating_associations
@@ -9,9 +21,9 @@ class Rating < ActiveRecord::Base
     new_ratings = []
     unless rating_string.nil? || rating_string.empty?
       rating_string.split(",").each do |rating|
-      rating_severity = rating.strip
-      new_rating = Rating.find_or_create_by(severity: rating_severity)
-      new_ratings << new_rating
+        rating_severity = rating.strip
+        new_rating = Rating.find_or_create_by(severity: rating_severity)
+        new_ratings << new_rating
       end
     end
     new_ratings

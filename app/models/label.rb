@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: labels
+#
+#  id             :integer          not null, primary key
+#  name           :string
+#  labelable_id   :integer
+#  labelable_type :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 class Label < ActiveRecord::Base
   has_many :labelings
   belongs_to :labelable, polymorphic: true
