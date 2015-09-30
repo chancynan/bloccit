@@ -18,6 +18,7 @@ group :development do
   gem 'sqlite3'
   gem 'pry-rails'
   gem 'annotate'
+  gem 'web-console', '~> 2.0'
 end
 
 # Use SCSS for stylesheets
