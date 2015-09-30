@@ -12,21 +12,21 @@ class TopicsController < ApplicationController
   end
 
   def new
-     @topic = Topic.new
-   end
+    @topic = Topic.new
+  end
 
-   def create
-     @topic = Topic.new(topic_params)
+  def create
+    @topic = Topic.new(topic_params)
 
-     if @topic.save
-       redirect_to @topic, notice: "Topic was saved successfully."
-     else
-       flash[:error] = "Error creating topic. Please try again."
-       render :new
-     end
-   end
+    if @topic.save
+      redirect_to @topic, notice: "Topic was saved successfully."
+    else
+      flash[:error] = "Error creating topic. Please try again."
+      render :new
+    end
+  end
 
-   def edit
+  def edit
     @topic = Topic.find(params[:id])
   end
 
@@ -35,7 +35,7 @@ class TopicsController < ApplicationController
     @topic.assign_attributes(topic_params)
 
     if @topic.save
-       flash[:notice] = "Topic was updated."
+      flash[:notice] = "Topic was updated."
       redirect_to @topic
     else
       flash[:error] = "Error saving topic. Please try again."
@@ -44,28 +44,36 @@ class TopicsController < ApplicationController
   end
 
   def destroy
-     @topic = Topic.find(params[:id])
+    @topic = Topic.find(params[:id])
 
-     if @topic.destroy
-       flash[:notice] = "\"#{@topic.name}\" was deleted successfully."
-       redirect_to action: :index
-     else
-       flash[:error] = "There was an error deleting the topic."
-       render :show
-     end
-   end
+    if @topic.destroy
+      flash[:notice] = "\"#{@topic.name}\" was deleted successfully."
+      redirect_to action: :index
+    else
+      flash[:error] = "There was an error deleting the topic."
+      render :show
+    end
+  end
 
-   private
-   def topic_params
-     params.require(:topic).permit(:name, :description, :public)
-   end
+  private
+  def topic_params
+    params.require(:topic).permit(:name, :description, :public)
+  end
 
-   def authorize_user
-     unless (current_user.admin?)
-       flash[:error] = "You must be an admin to do that."
-       redirect_to topics_path
-     end
-     if (user.moderator? && params[:action] == 'topics'/update')
-     end
-   end
+  def authorize_user
+    #edit update new
+    admin_actions = %w{new, create, destroy}
+    admin_and_mod_actions = %w{edit, update}
+    if admin_actions.include?(params[:action])
+      if !current_user.admin?
+        flash[:error] = "You must be an admin to do that."
+        redirect_to topics_path
+      end
+    elsif admin_and_mod_actions.include?(params[:action])
+      if !current_user.admin? || !current_user.moderator?
+        flash[:error] = "You must be an admin or moderator to do that."
+        redirect_to topics_path
+      end
+    end
+  end
 end
