@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150928041714) do
   add_index "rating_associations", ["topic_id"], name: "index_rating_associations_on_topic_id"
 
   create_table "ratings", force: :cascade do |t|
-    t.string   "severity"
+    t.integer  "severity"
     t.integer  "rateable_id"
     t.string   "rateable_type"
     t.datetime "created_at",    null: false
