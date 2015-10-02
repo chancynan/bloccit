@@ -14,8 +14,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "password")}
-  it { should have_many(:posts)}
+  let(:user) { create(:user) }
   it { should have_many(:comments)}
   it { should have_many(:votes) }
   it { should validate_presence_of(:name)}
@@ -103,5 +102,13 @@ RSpec.describe User, type: :model do
       expect(user_with_invalid_email_format).to_not be_valid
     end
   end
+  describe ".avatar_url" do
+     let(:known_user) { create(:user, email: "blochead@bloc.io") }
+
+     it "returns the proper Gravatar url for a known email entity" do
+       expected_gravatar = "http://gravatar.com/avatar/bb6d1172212c180cfbdb7039129d7b03.png?s=48"
+       expect(User.avatar_url(known_user, 48)).to eq(expected_gravatar)
+     end
+   end
 
 end
