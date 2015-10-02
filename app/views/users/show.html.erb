@@ -18,9 +18,25 @@
      </div>
    </div>
  </div>
- 
- <h2>Posts</h2>
- <%= render @user.posts %>
 
- <h2>Comments</h2>
- <%= render @user.comments %>
+   <% if !no_posts(user) %>
+     <h2>Posts</h2>
+     <%= render @user.posts %>
+
+     <h2>Comments</h2>
+     <%= render @user.comments %>
+   <% end %>
+
+<!-- I'm trying to get the post for the favorite -->
+
+     <h2>Favorites</h2>
+     <% @user.favorites.posts.each do |post| %>
+       <%= link_to Post.find(params[:post_id])%>
+     <% end %>
+
+     <div class="media-left">
+       <%= image_tag avatar_url, class: 'media-object' %>
+     </div>
+
+     <h2>Votes: <%= @user.votes.count %></h2>
+     <h2>Comments: <%= @user.comments.count %></h2>
