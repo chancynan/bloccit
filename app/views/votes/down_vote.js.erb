@@ -1,0 +1,5 @@
+<% if @vote.update_vote(new_value) %>
+   $('.js-votes-count').html("<%= pluralize(@votes.count, 'post') %>");
+ <% else %>
+   $('.flash').prepend("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><%= flash[:error] %></div>");
+ <% end %>

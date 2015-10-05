@@ -1,0 +1,6 @@
+<% if @vote.valid? %>
+   $('.new-votes').html("<%= escape_javascript(render partial: 'votes/_voter', locals: { post: @post, vote: @vote }) %>");
+ <% else %>
+   $('.flash').prepend("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><%= flash[:error] %></div>");
+   $('.new-votes').html("<%= escape_javascript(render partial: 'votes/_voter', locals: { post: @post, votes: @votes }) %>");
+ <% end %>

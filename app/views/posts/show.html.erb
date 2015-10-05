@@ -38,9 +38,11 @@
   </div>
   <div class="col-md-4">
      <h3>
-       <%= pluralize(@post.points, 'point') %>
-       <div>
-         <small>
+       <div class='js-votes'>
+         <%= pluralize(@post.points, 'point') %>
+       </div>
+       <div class='js-votes'>
+         <small >
            <%= pluralize(@post.up_votes, 'up vote') %>,
            <%= pluralize(@post.down_votes, 'down vote') %>
          </small>
