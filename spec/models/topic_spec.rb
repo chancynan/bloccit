@@ -57,6 +57,14 @@ RSpec.describe Topic, type: :model do
       it "returns only public topics if user is nil" do
         expect(Topic.visible_to(nil)).to eq([@public_topic])
       end
+
+      it "public topics" do
+        expect(Topic.publicly_viewable).to eq([@public_topic])
+      end
+
+      it "private topics" do
+        expect(Topic.privately_viewable).to eq([@private_topic])
+      end
     end
   end
 end
