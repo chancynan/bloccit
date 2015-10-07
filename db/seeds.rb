@@ -8,7 +8,7 @@ include RandomData
   end
   users = User.all
 
-  15.times do
+  5.times do
     Topic.create!(
       name: RandomData.random_sentence,
       description: RandomData.random_paragraph
@@ -16,22 +16,23 @@ include RandomData
   end
   topics = Topic.all
 
-  50.times do
+  5.times do
     post = Post.create!(
       user: users.sample,
       topic: topics.sample,
       title: RandomData.random_sentence,
-      body: RandomData.random_paragraph
-    )
-  end
-  post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
-  rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
-  posts = Post.all
+      body: RandomData.random_paragraph)
 
-  100.times do
+      post.update_attribute(:created_at, rand(10.minutes .. 1.year).ago)
+      rand(1..5).times { post.votes.create!(value: [-1, 1].sample, user: users.sample) }
+      posts = Post.all
+  end
+
+
+  10.times do
     Comment.create!(
-      user: users.sample,
-      post: posts.sample,
+      user: User.all.sample,
+      post: Post.all.sample,
       body: RandomData.random_paragraph
     )
   end
